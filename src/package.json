@@ -1,0 +1,21 @@
+{
+  "name": "tfslabs",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Robert MacLean <robert@sadev.co.za>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha --recursive --exit"  
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.6"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "husky": "^8.0.1",
+    "mocha": "^10.0.0"
+  }
+}
