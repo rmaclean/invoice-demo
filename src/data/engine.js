@@ -7,7 +7,13 @@ const getDataFromSource = async () => {
 const getInvoices = async (filter) => {
     return (await getDataFromSource()).filter(i => {
         if (filter) {
-            return i.status == filter.status
+            if (filter.status && i.status != filter.status) {
+                return false
+            }
+
+            if (filter.id && i.id != filter.id) {
+                return false
+            }
         } 
         
         // no filter
