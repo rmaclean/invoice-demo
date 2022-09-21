@@ -7,15 +7,17 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha --recursive --exit"  
+    "test": "mocha --recursive --exit '**/*.spec.js'"
   },
   "dependencies": {
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6"
   },
   "devDependencies": {
+    "@types/sinon": "^10.0.13",
     "eslint": "^8.23.1",
     "husky": "^8.0.1",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "sinon": "^14.0.0"
   }
 }
