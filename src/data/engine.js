@@ -1,9 +1,18 @@
 import * as fs from 'node:fs/promises'
 
-const getAll = async () => {
-    const rawData = await fs.readFile('./data/data.json', 'utf8')
-    const result = JSON.parse(rawData)
-    return result
+const getDataFromSource = async () => {
+    return JSON.parse(await fs.readFile('./data/data.json', 'utf8'))
 }
 
-export { getAll }
+const getInvoices = async (filter) => {
+    return (await getDataFromSource()).filter(i => {
+        if (filter) {
+            return i.status == filter.status
+        } 
+        
+        // no filter
+        return true
+    })
+}
+
+export { getInvoices }

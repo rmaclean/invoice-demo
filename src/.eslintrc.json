@@ -10,6 +10,7 @@
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    "ignorePatterns": ["*.spec.js"],
     "rules": {
         "indent": [
             "error",
