@@ -1,4 +1,4 @@
-import { createInvoice, deleteInvoice, getInvoice, getInvoices, updateInvoice } from './routes/invoiceAPI.js'
+import { createInvoice, deleteInvoice, getInvoice, getInvoicesRoute, updateInvoice } from './routes/invoiceAPI.js'
 
 import express from 'express'
 const port = 3000
@@ -7,7 +7,7 @@ const app = express()
 app.use(express.static('public'))
 
 app.post('/api/v1', createInvoice)
-app.get('/api/v1', getInvoices)
+app.get('/api/v1', getInvoicesRoute)
 app.get('/api/v1/:id', getInvoice)
 app.put('/api/v1', updateInvoice)
 app.delete('/api/v1', deleteInvoice)

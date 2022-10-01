@@ -1,5 +1,5 @@
 import { strict as assert } from 'assert'
-import { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice } from './engine.js'
+import { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice, addLineItem } from './engine.js'
 import mock from 'mock-fs'
 import fs from 'fs'
 import { incrementDate } from '../lib/dateTools.js'
@@ -107,22 +107,22 @@ describe('engine', () => {
 
             const result = await updateInvoice({ id: targetInvoice.id, dog: 'woof' })
             assert.ok(result)
-            assert.equal(false, result.success)
-            assert.equal('invalid data', result.error)
+            assert.equal(result.success, false)
+            assert.equal(result.error, 'invalid data')
         })
 
         it('should not be able to update an invoice with no id', async () => {
             const result = await updateInvoice("asd")
             assert.ok(result)
-            assert.equal(false, result.success)
-            assert.equal('invalid data', result.error)
+            assert.equal(result.success, false)
+            assert.equal(result.error, 'invalid data')
         })
 
         it('should not be able to update an invoice with wrong ID', async () => {
             const result = await updateInvoice({ id: 'blah', status: 'draft' })
             assert.ok(result)
-            assert.equal(false, result.success)
-            assert.equal('invoice not found', result.error)
+            assert.equal(result.success, false)
+            assert.equal(result.error, 'invoice not found')
         })
 
         it('should not be able to update an invoice a pending invoice with missing data', async () => {
@@ -131,7 +131,7 @@ describe('engine', () => {
             targetInvoice.status = 'pending'
             const result = await updateInvoice(targetInvoice)
             assert.ok(result)
-            assert.equal(false, result.success)
+            assert.equal(result.success, false)
             assert.ok(result.error.startsWith('missing data'))
         })
 
@@ -147,7 +147,77 @@ describe('engine', () => {
             assert.equal(result.invoice.id, targetInvoice.id)
             assert.equal(result.invoice.paymentTerms, 20)
             const expectedPaymentDate = incrementDate(targetInvoice.createdAt, 20)
-            assert.equal(expectedPaymentDate, result.invoice.paymentDue)
+            assert.equal(result.invoice.paymentDue, expectedPaymentDate)
+        })
+    })
+
+    describe('addLineItem', () => {
+        it('should be possible to add a line item to an invoice and it updates the total', async () => {
+            const targetInvoice = await addInvoice()
+            const result = await addLineItem(targetInvoice.id, {
+                name: 'test',
+                quantity: 1,
+                price: 100,
+            })
+
+            assert.ok(result)
+            assert.ok(result.success)
+
+            const updatedInvoice = await getInvoice(targetInvoice.id)
+            assert.equal(updatedInvoice.invoice.total, 100)
+            assert.equal(updatedInvoice.invoice.items.length, 1)
+            const lineItem = updatedInvoice.invoice.items[0]
+            assert.equal(lineItem.name, 'test')
+            assert.equal(lineItem.quantity, 1)
+            assert.equal(lineItem.price, 100)
+            assert.equal(lineItem.total, 100)
+        })
+
+        it('should not possible to add two line items with the same name to an invoice', async () => {
+            const targetInvoice = await addInvoice()
+            const firstLineItemResult = await addLineItem(targetInvoice.id, {
+                name: 'test',
+                quantity: 1,
+                price: 100,
+            })
+
+            assert.ok(firstLineItemResult)
+            assert.ok(firstLineItemResult.success)
+
+            const secondLineItemResult = await addLineItem(targetInvoice.id, {
+                name: 'TEST',
+                quantity: 1,
+                price: 100,
+            })
+
+            assert.ok(secondLineItemResult)
+            assert.equal(secondLineItemResult.success, false)
+            assert.equal(secondLineItemResult.error, 'name in use')
+        })
+
+        it('should not be possible to add a line item to a invalid invoice', async () => {
+            const result = await addLineItem("bleh", {
+                name: 'test',
+                quantity: 1,
+                price: 100,
+            })
+
+            assert.ok(result)
+            assert.equal(result.success, false)
+            assert.equal(result.error, 'invoice not found')
+        })
+
+        it('should not be possible to add a a bad line item', async () => {
+            const targetInvoice = await addInvoice()
+            const result = await addLineItem(targetInvoice.id, {
+                name: 'test',
+                quantity: 1,
+            })
+
+
+            assert.ok(result)
+            assert.equal(result.success, false)
+            assert.equal(result.error, 'invalid data')
         })
     })
 })

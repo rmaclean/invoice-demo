@@ -122,4 +122,46 @@ const updateInvoice = async (invoice) => {
     }
 }
 
-export { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice }
+const reconcileInvoiceTotal = async (invoice) => {
+    const total = invoice.items.map(l => l.total).reduce((accum, curr) => accum += curr, 0)
+    invoice.total = total
+    return await updateInvoice(invoice)
+}
+
+const addLineItem = async (invoiceId, lineItem) => {
+    if (!invoiceId || !lineItem || !lineItem.name || !lineItem.price || !lineItem.quantity) {
+        return {
+            success: false,
+            error: 'invalid data'
+        }
+    }
+
+    const dbIndex = await db.getIndex('/data', invoiceId)
+
+    if (dbIndex === -1) {
+        return {
+            success: false,
+            error: 'invoice not found'
+        }
+    }
+
+    const lineItemForDB = Object.assign({}, lineItem, {
+        total: lineItem.price * lineItem.quantity
+    })
+
+    const invoicePriorToLineItemAddition = await db.getObject(`/data[${dbIndex}]`)
+    const existingLineItem = invoicePriorToLineItemAddition.items.find(l => l.name.toUpperCase() === lineItem.name.toUpperCase())
+    if (existingLineItem) {
+        return {
+            success: false,
+            error: 'name in use'
+        }
+    }
+
+    await db.push(`/data[${dbIndex}]/items[]`, lineItemForDB)
+
+    const invoiceAfterToLineItemAddition = await db.getObject(`/data[${dbIndex}]`)
+    return reconcileInvoiceTotal(invoiceAfterToLineItemAddition)
+}
+
+export { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice, addLineItem }
