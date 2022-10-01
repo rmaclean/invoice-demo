@@ -164,4 +164,35 @@ const addLineItem = async (invoiceId, lineItem) => {
     return reconcileInvoiceTotal(invoiceAfterToLineItemAddition)
 }
 
-export { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice, addLineItem }
+const deleteLineItem = async (invoiceId, lineItemName) => {
+    if (!invoiceId || !lineItemName) {
+        return {
+            success: false,
+            error: 'invalid data'
+        }
+    }
+
+    const dbIndex = await db.getIndex('/data', invoiceId)
+
+    if (dbIndex === -1) {
+        return {
+            success: false,
+            error: 'invoice not found'
+        }
+    }
+
+    const invoicePriorToLineItemRemoval = await db.getObject(`/data[${dbIndex}]`)
+    const existingLineItemIndex = invoicePriorToLineItemRemoval.items.findIndex(l => l.name.toUpperCase() === lineItemName.toUpperCase())
+    if (existingLineItemIndex === -1) {
+        return {
+            success: false,
+            error: 'line item not found'
+        }
+    }
+
+    await db.delete(`/data[${dbIndex}]/items[${existingLineItemIndex}]`)
+    const invoiceAfterChanges = await db.getObject(`/data[${dbIndex}]`)
+    return reconcileInvoiceTotal(invoiceAfterChanges) 
+}
+
+export { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice, addLineItem, deleteLineItem }

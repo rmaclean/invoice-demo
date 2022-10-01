@@ -1,5 +1,5 @@
 import { strict as assert } from 'assert'
-import { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice, addLineItem } from './engine.js'
+import { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice, addLineItem, deleteLineItem } from './engine.js'
 import mock from 'mock-fs'
 import fs from 'fs'
 import { incrementDate } from '../lib/dateTools.js'
@@ -218,6 +218,59 @@ describe('engine', () => {
             assert.ok(result)
             assert.equal(result.success, false)
             assert.equal(result.error, 'invalid data')
+        })
+    })
+
+    describe('removeLineItem', () => {
+        it('should be possible to remove a valid line item to an invoice and it updates the total', async () => {
+            const targetInvoice = await addInvoice()
+            await addLineItem(targetInvoice.id, {
+                name: 'test',
+                quantity: 6,
+                price: 20,
+            })
+
+            await addLineItem(targetInvoice.id, {
+                name: 'dog',
+                quantity: 1,
+                price: 1000,
+            })
+
+            const result = await deleteLineItem(targetInvoice.id, 'TEST')
+            assert.ok(result)
+            assert.ok(result.success)
+
+            const updatedInvoice = await getInvoice(targetInvoice.id)
+            assert.equal(updatedInvoice.invoice.total, 1000)
+            assert.equal(updatedInvoice.invoice.items.length, 1)
+            const lineItem = updatedInvoice.invoice.items[0]
+            assert.equal(lineItem.name, 'dog')
+            assert.equal(lineItem.quantity, 1)
+            assert.equal(lineItem.price, 1000)
+            assert.equal(lineItem.total, 1000)
+        })
+
+        it('should not be possible to delete a line item to a invalid invoice', async () => {
+            const result = await deleteLineItem("bleh", "pointless")
+
+            assert.ok(result)
+            assert.equal(result.success, false)
+            assert.equal(result.error, 'invoice not found')
+        })
+
+        it('should not be possible to delete a invalid line item to a valid invoice', async () => {
+            const targetInvoice = await addInvoice()
+            await addLineItem(targetInvoice.id, {
+                name: 'test',
+                quantity: 100,
+                price: 1000,
+            })
+
+            const result = await deleteLineItem(targetInvoice.id, "bad")
+
+            assert.ok(result)
+            assert.equal(result.success, false)
+            assert.equal(result.error, 'line item not found')
         })
     })
 })
