@@ -1,5 +1,7 @@
-const createInvoice = (_req, _res) => {
-    // TODO: handle responses
+import { addInvoice } from '../../data/engine.js'
+
+const createInvoiceRoute = async (_req, res) => {
+    res.json(await addInvoice())
 }
 
-export { createInvoice }
+export { createInvoiceRoute }

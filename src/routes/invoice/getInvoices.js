@@ -1,7 +1,7 @@
-import { getInvoices } from '../data/engine.js'
+import { getInvoices } from '../../data/engine.js'
 
-const getInvoicesRoute = async (_req, res) => {
-    const invoices = await getInvoices()
+const getInvoicesRoute = async (req, res) => {
+    const invoices = await getInvoices(req.params.status)
     res.json(invoices)
 }
 

@@ -9,14 +9,10 @@ const getDataFromSource = async () => {
     return await db.getData('/data', true)
 }
 
-const getInvoices = async (filter) => {
+const getInvoices = async (status) => {
     return (await getDataFromSource()).filter(i => {
-        if (filter) {
-            if (filter.status && i.status != filter.status) {
-                return false
-            }
-
-            if (filter.id && i.id != filter.id) {
+        if (status) {
+            if (i.status != status) {
                 return false
             }
         }
@@ -114,7 +110,10 @@ const updateInvoice = async (invoice) => {
         }
     }
 
-    await db.push(`/data[${dbIndex}]`, invoice)
+    let existingInvoice = await db.getObject(`/data[${dbIndex}]`)
+    existingInvoice = Object.assign(existingInvoice, invoice)
+
+    await db.push(`/data[${dbIndex}]`, existingInvoice)
 
     return {
         success: true,
