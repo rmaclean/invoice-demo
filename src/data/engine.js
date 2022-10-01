@@ -41,7 +41,7 @@ const addInvoice = async () => {
 }
 
 const deleteInvoice = async (invoiceId) => {
-    const dbIndex = await db.getIndex('/data[]', invoiceId)
+    const dbIndex = await db.getIndex('/data', invoiceId)
 
     if (dbIndex === -1) {
         return {
