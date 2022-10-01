@@ -1,7 +1,8 @@
 import { strict as assert } from 'assert'
-import { getInvoices, addInvoice, deleteInvoice } from './engine.js'
+import { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice } from './engine.js'
 import mock from 'mock-fs'
 import fs from 'fs'
+import { incrementDate } from '../lib/dateTools.js'
 
 describe('engine', () => {
     before(async () => {
@@ -13,7 +14,7 @@ describe('engine', () => {
     after(async () => {
         mock.restore()
     })
-    
+
     describe('getInvoice', () => {
         it('should return everything when calling the getInvoices', async () => {
             const result = await getInvoices()
@@ -70,6 +71,83 @@ describe('engine', () => {
             assert.ok(result)
             assert.equal(false, result.success)
             assert.equal('invoice not found', result.error)
+        })
+    })
+
+    describe('getInvoice', () => {
+        it('should be able to get a valid invoice', async () => {
+            const targetInvoice = await addInvoice()
+            const result = await getInvoice(targetInvoice.id)
+            assert.ok(result)
+            assert.ok(result.success)
+            assert.ok(result.invoice)
+            assert.equal(result.invoice.id, targetInvoice.id)
+        })
+
+        it('should not be able to get an invalid invoice', async () => {
+            const result = await getInvoice('blah')
+            assert.ok(result)
+            assert.equal(false, result.success)
+            assert.equal('invoice not found', result.error)
+        })
+    })
+
+    describe('updateInvoice', () => {
+        it('should be able to update a valid invoice', async () => {
+            const targetInvoice = await addInvoice()
+            const result = await updateInvoice(targetInvoice)
+            assert.ok(result)
+            assert.ok(result.success)
+            assert.ok(result.invoice)
+            assert.equal(result.invoice.id, targetInvoice.id)
+        })
+
+        it('should not be able to update an invoice with invalid shape', async () => {
+            const targetInvoice = await addInvoice()
+
+            const result = await updateInvoice({ id: targetInvoice.id, dog: 'woof' })
+            assert.ok(result)
+            assert.equal(false, result.success)
+            assert.equal('invalid data', result.error)
+        })
+
+        it('should not be able to update an invoice with no id', async () => {
+            const result = await updateInvoice("asd")
+            assert.ok(result)
+            assert.equal(false, result.success)
+            assert.equal('invalid data', result.error)
+        })
+
+        it('should not be able to update an invoice with wrong ID', async () => {
+            const result = await updateInvoice({ id: 'blah', status: 'draft' })
+            assert.ok(result)
+            assert.equal(false, result.success)
+            assert.equal('invoice not found', result.error)
+        })
+
+        it('should not be able to update an invoice a pending invoice with missing data', async () => {
+            const targetInvoice = await addInvoice()
+
+            targetInvoice.status = 'pending'
+            const result = await updateInvoice(targetInvoice)
+            assert.ok(result)
+            assert.equal(false, result.success)
+            assert.ok(result.error.startsWith('missing data'))
+        })
+
+        it('should set payment due correctly when setting payment terms', async () => {
+            const targetInvoice = await addInvoice()
+
+            targetInvoice.paymentTerms = 20
+
+            const result = await updateInvoice(targetInvoice)
+            assert.ok(result)
+            assert.ok(result.success)
+            assert.ok(result.invoice)
+            assert.equal(result.invoice.id, targetInvoice.id)
+            assert.equal(result.invoice.paymentTerms, 20)
+            const expectedPaymentDate = incrementDate(targetInvoice.createdAt, 20)
+            assert.equal(expectedPaymentDate, result.invoice.paymentDue)
         })
     })
 })

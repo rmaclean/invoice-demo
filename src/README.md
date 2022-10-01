@@ -20,4 +20,4 @@ Welcome to my solution for the coding interview.
 I've opted to use a JSON file for the database. There is no requirements listed for a DB explictly; the one requirement listed that influenced this is
 > Imagine you're building this application for a single user (yourself)
 Single user, running by themselves, no need for a lot of the complexity. Everything is abstracted out so switching to a DB would be easy enough if needed.
-Bonus is I can use the sample file as the initial DB, so no need to build migration/ETL tooling.
+Bonus is I can use the test file as the initial DB, so no need to build migration/ETL tooling.

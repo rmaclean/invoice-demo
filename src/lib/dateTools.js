@@ -7,10 +7,24 @@ const padTwoDigitNumber = (number) => {
     return result
 }
 
-const getNowString = () => {
-    const now = new Date(Date.now())
-
-    return `${now.getFullYear()}-${padTwoDigitNumber(now.getMonth() + 1)}-${padTwoDigitNumber(now.getDate())}`
+const formatDate = (date) => {
+    return `${date.getFullYear()}-${padTwoDigitNumber(date.getMonth() + 1)}-${padTwoDigitNumber(date.getDate())}`
 }
 
-export { getNowString }
+const getNowString = () => {
+    const now = new Date(Date.now())
+    return formatDate(now)
+}
+
+const incrementDate = (initialDate, days) => {
+    if (days <= 0) {
+        return initialDate
+    }
+
+    const daysAsMS = days * 86400000 // 1000ms * 60sec * 60min * 24hr
+    const parsedDate = new Date(initialDate)
+    parsedDate.setTime(parsedDate.getTime() + daysAsMS)
+    return formatDate(parsedDate)
+}
+
+export { getNowString, incrementDate }
