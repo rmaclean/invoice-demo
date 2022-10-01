@@ -1,7 +1,19 @@
 import { strict as assert } from 'assert'
-import { getInvoices } from './engine.js'
+import { getInvoices, addInvoice, deleteInvoice } from './engine.js'
+import mock from 'mock-fs'
+import fs from 'fs'
 
 describe('engine', () => {
+    before(async () => {
+        mock({
+            './data/data.json': fs.readFileSync('./resources/testdata.json', "utf8")
+        })
+    })
+
+    after(async () => {
+        mock.restore()
+    })
+    
     describe('getInvoice', () => {
         it('should return everything when calling the getInvoices', async () => {
             const result = await getInvoices()
@@ -34,6 +46,30 @@ describe('engine', () => {
             const result = await getInvoices({ id: 'kjhkh' })
             assert.ok(result)
             assert.equal(result.length, 0)
+        })
+    })
+
+    describe('addInvoice', () => {
+        it('should add a draft invoice when called without anything', async () => {
+            const result = await addInvoice()
+            assert.ok(result)
+            assert.equal(result.status, 'draft')
+        })
+    })
+
+    describe('deleteInvoice', () => {
+        it('should be able to delete valid invoice', async () => {
+            const targetInvoice = await addInvoice()
+            const result = await deleteInvoice(targetInvoice.id)
+            assert.ok(result)
+            assert.ok(result.success)
+        })
+
+        it('should not be able to delete invalid invoice', async () => {
+            const result = await deleteInvoice('blah')
+            assert.ok(result)
+            assert.equal(false, result.success)
+            assert.equal('invoice not found', result.error)
         })
     })
 })

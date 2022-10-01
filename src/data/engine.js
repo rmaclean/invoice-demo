@@ -1,7 +1,11 @@
-import * as fs from 'node:fs/promises'
+import { createID } from '../lib/createID.js'
+import { getNowString } from '../lib/dateTools.js'
+import { JsonDB, Config } from 'node-json-db'
+
+const db = new JsonDB(new Config('./data/data.json', true, true, '/', true))
 
 const getDataFromSource = async () => {
-    return JSON.parse(await fs.readFile('./data/data.json', 'utf8'))
+    return await db.getData('/data', true)
 }
 
 const getInvoices = async (filter) => {
@@ -14,11 +18,44 @@ const getInvoices = async (filter) => {
             if (filter.id && i.id != filter.id) {
                 return false
             }
-        } 
-        
+        }
+
         // no filter
         return true
     })
 }
 
-export { getInvoices }
+const addInvoice = async () => {
+    const allInvoices = await getDataFromSource()
+    const id = createID(allInvoices)
+
+    const record = {
+        id,
+        createdAt: getNowString(),
+        status: 'draft'
+    }
+
+    await db.push('/data[]', record, true)
+
+    return record
+}
+
+const deleteInvoice = async (invoiceId) => {
+    const dbIndex = await db.getIndex('/data[]', invoiceId)
+
+    if (dbIndex === -1) {
+        return {
+            success: false,
+            error: 'invoice not found'
+        }
+    }
+
+
+    await db.delete(`/data[${dbIndex}]`)
+
+    return {
+        success: true
+    }
+}
+
+export { getInvoices, addInvoice, deleteInvoice }
