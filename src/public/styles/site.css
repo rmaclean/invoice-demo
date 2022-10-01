@@ -1,0 +1,72 @@
+:root {
+    --color-a: #7C5DFA;
+    --color-b: #9277FF;
+    --color-c: #1E2139;
+    --color-d: #252945;
+    --color-e: #DFE3FA;
+    --color-f: #888EB0;
+    --color-g: #7E88C3;
+    --color-h: #0C0E16;
+    --color-i: #EC5757;
+    --color-j: #9277FF;
+    --color-k: #F8F8F8;
+    --color-l: #141625;
+}
+
+@font-face {
+    font-family: 'League Spartan', sans-serif;
+    src: url('LeagueSpartan-VariableFont_wght.ttf') format(truetype);
+}
+
+.bodyAlt {
+    font-size: 11px;
+    font-weight: normal;
+    line-height: 18px;
+    letter-spacing: -0.23;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 36px;
+    letter-spacing: -1;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 22px;
+    letter-spacing: -0.63;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+    letter-spacing: -0.8;
+}
+
+h4 {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 15px;
+    letter-spacing: -0.25;
+}
+
+body {
+    background-color: var(--color-k);
+    color: var(--color-h);
+    
+    font-family: 'League Spartan', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 15px;
+    letter-spacing: -0.25;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: var(--color-l);
+        color: white;
+    }    
+}

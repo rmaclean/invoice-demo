@@ -17,10 +17,6 @@ app.put('/api/v1/:id', invoiceAPI.updateLineItemRoute)
 app.delete('/api/v1/:invoiceId/:lineItemId', invoiceAPI.deleteLineItemRoute)
 app.post('/api/v1/:id/new', invoiceAPI.addLineItemRoute)
 
-app.get('/', (_req, res) => {
-    res.send('Hello World!')
-})
-
 app.listen(port, () => {
     console.log(`Server is up at http://localhost:${port}`)
 })
