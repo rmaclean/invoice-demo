@@ -1,8 +1,5 @@
-import { getInvoices } from '../data/engine.js'
-
-const getInvoice = async (_req, res) => {
-    const invoices = await getInvoices()
-    res.json(invoices)
+const getInvoice = async (_req, _res) => {
+    // TODO: handle responses
 }
 
 export { getInvoice }
