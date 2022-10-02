@@ -1,3 +1,91 @@
 {
-    "data": []
+    "data": [
+        {
+            "id": "GL2305",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "RF7114",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "JC5380",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "UV4223",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "GB7432",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "ZT2902",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "GR3590",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "ZI2923",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "MN7304",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": []
+        },
+        {
+            "id": "EU5424",
+            "createdAt": "2022-10-02",
+            "status": "draft",
+            "total": 0,
+            "items": [],
+            "description": "asd",
+            "clientName": "",
+            "clientEmail": "",
+            "clientAddress": {
+                "street": "",
+                "city": "",
+                "postCode": "",
+                "country": ""
+            },
+            "senderAddress": {
+                "street": "",
+                "city": "",
+                "postCode": "",
+                "country": ""
+            },
+            "paymentTerms": 7,
+            "paymentDue": "2022-10-09"
+        }
+    ]
 }

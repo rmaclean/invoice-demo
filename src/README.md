@@ -29,3 +29,18 @@ I ended up with two different approaches for validating Invoices versus Line Ite
 ## Postman Collection
 
 Inside `docs` is a postman collection for exploring the API if you want to try it directly. In the real world this would be the start of API tests which could be integrated into the pipeline but for this, a simple tool for smoke testing is enough.
+
+## Not production ready
+
+This is obviously not production ready, just due to how long that would take. It needs:
+- Logging in the API
+- Metrics in the API
+- Client side monitoring (like a new relic)
+
+## New Invoice is not a flyout
+
+While the design asked for a flyout, again due to how massive this project is, there just was not time so a trade off was made to get it in. This also had the benefit of working nicely with handlebars for refreshing the data automatically.
+
+## Why not Vue/React?
+
+This did not need state management as it is very constrained simple system which has the needs met with Handlebars and pure JS. In my day to day, I use React for UI but those are much more complex systems. 

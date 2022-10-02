@@ -88,7 +88,7 @@ nav {
   background-color: var(--color-c);
   width: 100px;
   display: grid;
-  height: 100vh;
+  height: 100%;
   grid-auto-flow: row;
   grid-template-rows: auto 1fr auto auto;
   border-bottom-right-radius: 25px;
@@ -184,25 +184,27 @@ header {
   grid-template-rows: auto auto;
 }
 
-button {
+.button {
   min-width: 125px;
   height: 50px;
   border-radius: 50px;
   background-color: var(--color-a);
   color: var(--color-m);
-  cursor: pointer;
-}
-
-.button-add {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-columns: auto auto;
-  column-gap: 5px;
-  align-items: center;
+  text-decoration: none;
+  border-width: 0;
   padding-left: 10px;
   padding-right: 10px;
   font-weight: bold;
   font-size: 14px;
+  align-items: center;
+  display: grid;
+  justify-items: center;
+}
+
+.button-add {
+  grid-auto-flow: column;
+  grid-template-columns: auto auto;
+  column-gap: 5px;
 }
 
 .button-add-icon {
@@ -276,4 +278,151 @@ button {
 
 .invoice-row-status-bullet {
   font-size: 30px;
+}
+
+.new-invoice {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+  justify-items: left;
+  align-items: start;
+  align-self: start;
+  width: 50vw;
+  margin-bottom: 30px;
+}
+
+.new-invoice-form {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+  justify-items: left;
+  align-items: start;
+  align-self: start;
+  width: 100%;
+}
+
+.new-invoice-input {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 5px;
+  justify-items: left;
+  align-items: start;
+  align-self: start;
+  width: 100%;
+}
+
+label {
+  color: var(--color-f);
+}
+
+.new-invoice-section {
+  color: var(--color-a);
+}
+
+.new-invoice-local-layout {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.new-invoice-dates {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+input[type="text"] 
+{
+  background-color: var(--color-d);
+  height: 35px;
+  color: var(--color-m);
+  border-radius: 5px;
+  width: 100%;
+  border-width: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-color: var(--color-g);
+  border-style: solid;
+}
+
+input[type="date"] 
+{
+  background-color: var(--color-d);
+  height: 35px;
+  color: var(--color-m);
+  border-radius: 5px;
+  width: 100%;
+  border-width: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-color: var(--color-g);
+  border-style: solid;
+}
+
+select
+{
+  background-color: var(--color-d);
+  height: 35px;
+  color: var(--color-m);
+  border-radius: 5px;
+  width: 100%;
+  border-width: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-color: var(--color-g);
+  border-style: solid;
+}
+
+.new-invoice-items{
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 5px;
+  justify-items: left;
+  align-items: start;
+  align-self: start;
+  width: 100%;
+}
+
+.new-invoice-item-row {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  grid-template-columns: auto 50px 100px 100px 30px;
+  width: 100%;
+  justify-items: stretch;
+}
+
+.button-color-d {
+  background-color: var(--color-d);
+  width: 100%;
+}
+
+.button-color-f {
+  background-color: var(--color-f);
+}
+
+.button-color-m {
+  background-color: var(--color-m);
+  color: var(--color-g);
+}
+
+.new-invoice-buttons {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  grid-template-columns: 125px auto 125px 125px;
+  width: 100%;
+  justify-items: stretch;
+}
+
+button[type=button] {
+  cursor: pointer;
 }
