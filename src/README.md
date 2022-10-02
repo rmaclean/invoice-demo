@@ -44,3 +44,5 @@ While the design asked for a flyout, again due to how massive this project is, t
 ## Why not Vue/React?
 
 This did not need state management as it is very constrained simple system which has the needs met with Handlebars and pure JS. In my day to day, I use React for UI but those are much more complex systems. 
+
+The only area which really could've used a proper state system would've line items when creating an invoice; but just building a naive approach with in memory one.

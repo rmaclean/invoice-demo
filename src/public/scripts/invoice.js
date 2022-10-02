@@ -1,26 +1,37 @@
-window.createDraftInvoice = async () => {
-    const draftInvoiceResponse = await fetch('/api/v1', {
-        method: 'POST'
-    })
-
-    const draftInvoice = await draftInvoiceResponse.json()
-
-    draftInvoice.description = document.getElementById('projectDescription').value
-    draftInvoice.clientName = document.getElementById('clientsName').value
-    draftInvoice.clientEmail = document.getElementById('clientsEmail').value
-    draftInvoice.clientAddress = {
-        street: document.getElementById('clientAddress').value,
-        city: document.getElementById('clientCity').value,
-        postCode: document.getElementById('clientPostCode').value,
-        country: document.getElementById('clientCountry').value,
+window.createInvoice = async (id, setStatusToPending) => {
+    if (setStatusToPending) {
+        if (!document.getElementById("newInvoiceForm").reportValidity()) {
+            return
+        }
     }
-    draftInvoice.senderAddress = {
-        street: document.getElementById('billfromAddress').value,
-        city: document.getElementById('billfromCity').value,
-        postCode: document.getElementById('billfromPostCode').value,
-        country: document.getElementById('billfromCountry').value,
+
+    const draftInvoice = {
+        id,
+        createdAt: document.getElementById('issueDate').value,
+        description: document.getElementById('projectDescription').value,
+        clientName: document.getElementById('clientsName').value,
+        clientEmail: document.getElementById('clientsEmail').value,
+        clientAddress: {
+            street: document.getElementById('clientAddress').value,
+            city: document.getElementById('clientCity').value,
+            postCode: document.getElementById('clientPostCode').value,
+            country: document.getElementById('clientCountry').value,
+        },
+        senderAddress: {
+            street: document.getElementById('billfromAddress').value,
+            city: document.getElementById('billfromCity').value,
+            postCode: document.getElementById('billfromPostCode').value,
+            country: document.getElementById('billfromCountry').value,
+        },
+        paymentTerms: +document.getElementById('paymentTerms').value
     }
-    draftInvoice.paymentTerms = +document.getElementById('paymentTerms').value
+
+    if (setStatusToPending) {
+        draftInvoice.status = 'pending'
+    } else {
+        draftInvoice.status = 'draft'
+    }
+
 
     const updateResult = await fetch('/api/v1', {
         method: 'PUT',
@@ -37,3 +48,32 @@ window.createDraftInvoice = async () => {
         window.location.href = '/'
     }
 }
+
+window.deleteInvoice = async (id) => {
+    await fetch(`/api/v1/${id}`, {
+        method: 'DELETE',
+    })
+
+    window.location.href = '/'
+}
+
+// window.addLineItem = async (id) => {
+//     const result = await fetch(`/api/v1/${id}/new`, {
+//         method: 'POST',
+//         body: JSON.stringify({
+//             name: "PENDING",
+//             price: 0,
+//             quantity: 1
+//         }),
+//         headers: {
+//             'Accept': 'application/json',
+//             'Content-Type': 'application/json'
+//         },
+//     })
+
+//     if (!result.ok) {
+//         alert(await result.text())
+//     } else {
+//         window.location.href = `/invoice/${id}`
+//     }
+// }

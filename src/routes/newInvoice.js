@@ -1,6 +1,11 @@
-const configureNewInvoice = (app) => {
+import { addInvoice } from '../data/engine.js'
+
+const configureNewInvoice = async (app) => {
     app.get('/new', async (_req, res) => {
-        res.render('newInvoice', {})
+        const draftInvoice = await addInvoice()
+        res.render('newInvoice', {
+            draftInvoice 
+        })
     })
 }
 

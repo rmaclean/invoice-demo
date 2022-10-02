@@ -128,7 +128,7 @@ const reconcileInvoiceTotal = async (invoice) => {
 }
 
 const addLineItem = async (invoiceId, lineItem) => {
-    if (!invoiceId || !lineItem || !lineItem.name || !lineItem.price || !lineItem.quantity) {
+    if (!invoiceId || !lineItem || !lineItem.name || lineItem.price === undefined || lineItem.quantity === undefined) {
         return {
             success: false,
             error: 'invalid data'
@@ -191,7 +191,7 @@ const deleteLineItem = async (invoiceId, lineItemName) => {
 
     await db.delete(`/data[${dbIndex}]/items[${existingLineItemIndex}]`)
     const invoiceAfterChanges = await db.getObject(`/data[${dbIndex}]`)
-    return reconcileInvoiceTotal(invoiceAfterChanges) 
+    return reconcileInvoiceTotal(invoiceAfterChanges)
 }
 
 const updateLineItem = async (invoiceId, lineItem) => {
@@ -212,7 +212,7 @@ const updateLineItem = async (invoiceId, lineItem) => {
     }
 
     const invoicePriorToLineItemUpdate = await db.getObject(`/data[${dbIndex}]`)
-    const existingLineItemIndex = invoicePriorToLineItemUpdate.items.findIndex(l => l.name.toUpperCase() ===  lineItem.name.toUpperCase())
+    const existingLineItemIndex = invoicePriorToLineItemUpdate.items.findIndex(l => l.name.toUpperCase() === lineItem.name.toUpperCase())
     if (existingLineItemIndex === -1) {
         return {
             success: false,
@@ -228,7 +228,7 @@ const updateLineItem = async (invoiceId, lineItem) => {
 
     await db.push(`/data[${dbIndex}]/items[${existingLineItemIndex}]`, existingLineItem, true)
     const invoiceAfterChanges = await db.getObject(`/data[${dbIndex}]`)
-    return reconcileInvoiceTotal(invoiceAfterChanges) 
+    return reconcileInvoiceTotal(invoiceAfterChanges)
 }
 
 export { getInvoices, addInvoice, deleteInvoice, getInvoice, updateInvoice, addLineItem, deleteLineItem, updateLineItem }
