@@ -1,0 +1,15 @@
+{{#if invoice.isDraft}}
+<div class="invoice-row-status">
+{{/if}}
+
+{{#if invoice.isPending}}
+<div class="invoice-row-status invoice-row-status-pending">
+{{/if}}
+
+{{#if invoice.isPaid}}
+<div class="invoice-row-status invoice-row-status-paid">
+{{/if}}
+
+    <div class="invoice-row-status-bullet">&bullet;</div>
+    <h4>{{invoice.status}}</h4>
+</div>

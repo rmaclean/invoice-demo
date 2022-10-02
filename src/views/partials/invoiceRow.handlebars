@@ -1,5 +1,7 @@
 <div class="invoice-row">
-  <div class="invoice-row-id"><h4>#{{invoice.id}}</h4></div>
+  <div class="invoice-row-id">
+    <h4>#{{invoice.id}}</h4>
+  </div>
   <div class="invoice-row-due">
     {{#if invoice.hasDue}}
       Due
@@ -7,11 +9,10 @@
     {{/if}}
   </div>
   <div class="invoice-row-client-name">{{invoice.clientName}}</div>
-  <div class="invoice-row-total"><h3>{{invoice.totalCurrency}}</h3></div>
-  <div class="invoice-row-status">
-    <div class="invoice-row-status-bullet">&bullet;</div><h4>
-      {{invoice.status}}</h4>
+  <div class="invoice-row-total">
+    <h3>{{invoice.totalCurrency}}</h3>
   </div>
+  {{> statusBadge invoice=invoice}}
   <div class="invoice-row-client-arrow"><img
       src="/images/icon-arrow-right.svg"
       alt="Arrow right"

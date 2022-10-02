@@ -276,6 +276,16 @@ header {
   grid-template-columns: 10px 1fr;
 }
 
+.invoice-row-status-pending {
+  background-color: rgb(255, 225, 168);
+  color: orange
+}
+
+.invoice-row-status-paid {
+  background-color: rgba(3, 161, 3, 0.696);
+  color: green;
+}
+
 .invoice-row-status-bullet {
   font-size: 30px;
 }

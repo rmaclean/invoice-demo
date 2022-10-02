@@ -1,6 +1,6 @@
 window.createInvoice = async (id, setStatusToPending) => {
     if (setStatusToPending) {
-        if (!document.getElementById("newInvoiceForm").reportValidity()) {
+        if (!document.getElementById('newInvoiceForm').reportValidity()) {
             return
         }
     }
