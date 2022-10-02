@@ -1,0 +1,64 @@
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TFG Invoice System</title>
+    <link rel="stylesheet" href="/styles/site.css" />
+    <script src="/scripts/invoice.js"></script>
+  </head>
+
+  <body>
+    <nav>
+      <div class="nav-logo">
+        <div class="nav-logo-shimmer"></div>
+        <div class="nav-logo-image">
+          <img
+            src="./images/logo.svg"
+            alt="Pacman logo"
+            class="nav-logo-image-asset"
+          />
+        </div>
+      </div>
+      <div></div>
+      <div class="nav-theme">
+        <img src="./images/icon-sun.svg" alt="Sun" />
+      </div>
+      <div class="nav-profile">
+        <div class="nav-profile-seperator" role="presentation">&nbsp;</div>
+        <img
+          src="./images/image-avatar.jpg"
+          alt="Profile"
+          class="nav-profile-image"
+        />
+      </div>
+    </nav>
+    <main>
+      <header>
+        <div class="header-title">
+          <h1>Invoices</h1>
+          <div>{{#if hasInvoices}}
+              There are
+              {{invoices.length}}
+              total invoices
+            {{else}}
+              No invoices
+            {{/if}}</div>
+        </div>
+        <div></div>
+        <div>Filter by status</div>
+        <div>
+          <button type="button" class="button button-add">
+            <div class="button-add-icon">
+              <div>+</div>
+            </div>
+            <div>New Invoice</div>
+          </button>
+        </div>
+      </header>
+      {{{body}}}
+    </main>
+  </body>
+
+</html>

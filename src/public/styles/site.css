@@ -75,7 +75,6 @@ body {
   font-weight: normal;
   line-height: 15px;
   letter-spacing: -0.25px;
-
 }
 
 @media (prefers-color-scheme: dark) {
@@ -195,38 +194,86 @@ button {
 }
 
 .button-add {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: auto auto;
-    column-gap: 5px;
-    align-items: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-weight: bold;
-    font-size: 14px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto;
+  column-gap: 5px;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .button-add-icon {
-    background-color: var(--color-m);
-    width: 25px;
-    height: 25px;
-    border-radius: 25px;
-    color: var(--color-a);
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    font-size: 26px;
-    font-weight: bold;
-    line-height: 30px;
+  background-color: var(--color-m);
+  width: 25px;
+  height: 25px;
+  border-radius: 25px;
+  color: var(--color-a);
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+  font-weight: bold;
+  line-height: 30px;
 }
 
 .no-invoice-content {
-    display: grid;
-    grid-auto-flow: row;
-    grid-template-rows: repeat(3, min-content);
-    row-gap: 5px;
-    justify-items: center;
-    align-items: center;
-    text-align: center;
-    align-self: center;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-rows: repeat(3, min-content);
+  row-gap: 5px;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+}
+
+.invoices-list {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+  align-items: start;
+  align-self: start;
+}
+
+.invoice-row {
+  height: 70px;
+  background-color: var(--color-d);
+  width: 100%;
+  border-radius: 20px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 75px auto 1fr auto 70px 30px;
+  column-gap: 10px;
+  align-items: center;
+  padding-left: 20px;
+  cursor: pointer;
+}
+
+.invoice-row-id {
+  padding-left: 20px;
+}
+
+.invoice-row-total {
+  text-align: right;
+}
+
+.invoice-row-status {
+  height: 40px;
+  background-color: var(--color-f);
+  color: var(--color-e);
+  display: grid;
+  border-radius: 10px;
+  align-items: center;
+  justify-items: center;
+  grid-auto-flow: column;
+  padding-left: 10px;
+  padding-right: 10px;
+  grid-template-columns: 10px 1fr;
+}
+
+.invoice-row-status-bullet {
+  font-size: 30px;
 }
