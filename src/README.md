@@ -2,6 +2,14 @@ Hi!
 
 Welcome to my solution for the coding interview. 
 
+# Not finished
+
+This is not complete, the instructions were it would take 5 hours and I am 15 hours in and easily could do another 15 hours to get it to the bar I expect from "production" ready as in the instructions.
+
+As you can see the backend is complete and started with proper testing approach and ensuring a clean setup but once I realised I was running out of time a lot of trade offs, especially on the UI, were made which would be an interesting discussion topic. 
+
+If you would like more examples of my coding, there is plenty at: https://github.com/rmaclean
+
 # You'll need
 
 - node 16 (there us a nvm file if you prefer)
@@ -46,3 +54,7 @@ While the design asked for a flyout, again due to how massive this project is, t
 This did not need state management as it is very constrained simple system which has the needs met with Handlebars and pure JS. In my day to day, I use React for UI but those are much more complex systems. 
 
 The only area which really could've used a proper state system would've line items when creating an invoice; but just building a naive approach with in memory one.
+
+# This should've used S*SS
+
+When I started, seemed simple enough for CSS but breaking it into SASS so it is not so big would've been ideal. Again, just ran out of time to refactor that.

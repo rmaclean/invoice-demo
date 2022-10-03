@@ -28,6 +28,11 @@
   letter-spacing: -0.23px;
 }
 
+a {
+  text-decoration: none;
+  color: unset;
+}
+
 h1 {
   font-size: 32px;
   font-weight: bold;
@@ -282,7 +287,7 @@ header {
 }
 
 .invoice-row-status-paid {
-  background-color: rgba(3, 161, 3, 0.696);
+  background-color: rgb(138 212 138 / 70%);
   color: green;
 }
 
@@ -440,6 +445,14 @@ select
   color: var(--color-g);
 }
 
+.button-color-custom {
+  background-color: #2e3a99;
+}
+
+.button-color-i {
+  background-color: var(--color-i);
+}
+
 .new-invoice-buttons {
   display: grid;
   grid-auto-flow: column;
@@ -451,4 +464,60 @@ select
 
 button[type=button] {
   cursor: pointer;
+}
+
+.view-invoice {
+  display: grid;
+  width: 80%;
+  grid-auto-flow: row;
+  grid-template-rows: 100px auto;
+  row-gap: 20px;
+}
+
+.view-invoice-status {
+  background-color: var(--color-d);
+  padding-left: 20px;
+  padding-right: 20px;
+  column-gap: 10px;
+  align-items: center;
+  border-radius: 25px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto 1fr auto auto auto;
+}
+
+.view-invoice-detail {
+  background-color: var(--color-d);
+  border-radius: 25px;
+  grid-auto-flow: row;
+  grid-template-rows: auto auto auto;
+  padding: 20px;
+  row-gap: 10px;
+}
+
+.view-invoice-detail-row1 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto;
+  align-items: start;
+}
+
+.view-invoice-detail-row2 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto auto;
+  align-items: start;
+}
+
+.view-invoice-detail-row3 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto;
+  align-items: start;
+  border-radius: 15px;
+  background-color: var(--color-g);
+}
+
+.view-invoice-detail-address {
+  text-align: right;
 }

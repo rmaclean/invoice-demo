@@ -1,0 +1,47 @@
+<div class="view-invoice">
+    <div class="view-invoice-status">
+        <div>Status</div>
+        <div>{{> statusBadge invoice=invoice}}</div>
+        <div></div>
+        <button type="button" class="button button-color-custom">Edit</button>
+        <button type="button" class="button button-color-i">Delete</button>
+        <button type="button" class="button">Mark as Paid</button>
+    </div>
+    <div class="view-invoice-detail">
+        <div class="view-invoice-detail-row1">
+            <div>
+                <h3>#{{invoice.id}}</h3>
+                <div>{{invoice.description}}</div>
+            </div>
+            <div class="view-invoice-detail-address">
+                <div>{{invoice.senderAddress.street}}</div>
+                <div>{{invoice.senderAddress.city}}</div>
+                <div>{{invoice.senderAddress.postCode}}</div>
+                <div>{{invoice.senderAddress.country}}</div>
+            </div>
+        </div>
+        <div class="view-invoice-detail-row2">
+            <div>
+                <div>Invoice Date</div>
+                <h3>{{invoice.createdAt}}</h3>
+                <div>Payment Date</div>
+                <h3>{{invoice.paymentDue}}</h3>
+            </div>
+            <div>
+                <div>Bill To</div>
+                <h3>{{invoice.clientName}}</h3>
+                <div>{{invoice.clientAddress.street}}</div>
+                <div>{{invoice.clientAddress.city}}</div>
+                <div>{{invoice.clientAddress.postCode}}</div>
+                <div>{{invoice.clientAddress.country}}</div>
+            </div>
+            <div>
+                <div>Sent To</div>
+                <h3>{{invoice.clientEmail}}</h3>
+            </div>
+        </div>
+        <div class="view-invoice-detail-row3">
+            // line items
+        </div>
+    </div>
+</div>
